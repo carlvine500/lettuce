@@ -217,6 +217,7 @@ cluster-config-file work/redis-cluster-config6-7384.conf
 endef
 
 define STUNNEL_CONF
+[stunnel]
 cert = $(ROOT_DIR)/work/cert.pem
 key = $(ROOT_DIR)/work/key.pem
 capath = $(ROOT_DIR)/work/cert.pem
