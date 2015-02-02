@@ -217,10 +217,6 @@ cluster-config-file work/redis-cluster-config6-7384.conf
 endef
 
 define STUNNEL_CONF
-[stunnel]
-cert = $(ROOT_DIR)/work/cert.pem
-key = $(ROOT_DIR)/work/key.pem
-capath = $(ROOT_DIR)/work/cert.pem
 delay = yes
 pid = $(ROOT_DIR)/work/stunnel.pid
 foreground = no
@@ -228,6 +224,10 @@ foreground = no
 [redis]
 accept = 127.0.0.1:6443
 connect = 127.0.0.1:6479
+cert = $(ROOT_DIR)/work/cert.pem
+key = $(ROOT_DIR)/work/key.pem
+capath = $(ROOT_DIR)/work/cert.pem
+
 endef
 
 export REDIS1_CONF
@@ -278,12 +278,7 @@ start: cleanup
 	echo "$$REDIS_CLUSTER_NODE4_CONF" > work/redis-clusternode4-7382.conf && redis-server work/redis-clusternode4-7382.conf
 	echo "$$REDIS_CLUSTER_NODE5_CONF" > work/redis-clusternode5-7383.conf && redis-server work/redis-clusternode5-7383.conf
 	echo "$$REDIS_CLUSTER_NODE6_CONF" > work/redis-clusternode6-7384.conf && redis-server work/redis-clusternode6-7384.conf
-	pwd
-	echo "$$STUNNEL_CONF" > work/stunnel.conf
-	cat work/stunnel.conf
-	cat work/key.pem
-	cat work/cert.pem
-	stunnel work/stunnel.conf
+	echo "$$STUNNEL_CONF" > work/stunnel.conf && stunnel work/stunnel.conf
 
 cleanup: stop
 	- mkdir -p work
