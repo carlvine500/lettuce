@@ -220,6 +220,10 @@ define STUNNEL_CONF
 delay = yes
 pid = $(ROOT_DIR)/work/stunnel.pid
 foreground = no
+cert = $(ROOT_DIR)/work/cert.pem
+key = $(ROOT_DIR)/work/key.pem
+capath = $(ROOT_DIR)/work/cert.pem
+
 
 [redis]
 accept = 127.0.0.1:6443
@@ -227,6 +231,12 @@ connect = 127.0.0.1:6479
 cert = $(ROOT_DIR)/work/cert.pem
 key = $(ROOT_DIR)/work/key.pem
 capath = $(ROOT_DIR)/work/cert.pem
+
+[stunnel]
+cert = $(ROOT_DIR)/work/cert.pem
+key = $(ROOT_DIR)/work/key.pem
+capath = $(ROOT_DIR)/work/cert.pem
+
 
 endef
 
