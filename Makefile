@@ -279,7 +279,9 @@ start: cleanup
 	echo "$$REDIS_CLUSTER_NODE5_CONF" > work/redis-clusternode5-7383.conf && redis-server work/redis-clusternode5-7383.conf
 	echo "$$REDIS_CLUSTER_NODE6_CONF" > work/redis-clusternode6-7384.conf && redis-server work/redis-clusternode6-7384.conf
 	- ls /etc/stunnel/*
-	echo "$$STUNNEL_CONF" > work/stunnel.conf && sudo cp -f work/stunnel.conf /etc/stunnel/stunnel.conf
+	echo "$$STUNNEL_CONF" > work/stunnel.conf
+	sudo cp -f work/stunnel.conf /etc/stunnel/stunnel.conf
+	sudo cp -f work/stunnel.conf /etc/stunnel.conf
 	stunnel work/stunnel.conf
 
 cleanup: stop
