@@ -278,6 +278,10 @@ start: cleanup
 	echo "$$REDIS_CLUSTER_NODE4_CONF" > work/redis-clusternode4-7382.conf && redis-server work/redis-clusternode4-7382.conf
 	echo "$$REDIS_CLUSTER_NODE5_CONF" > work/redis-clusternode5-7383.conf && redis-server work/redis-clusternode5-7383.conf
 	echo "$$REDIS_CLUSTER_NODE6_CONF" > work/redis-clusternode6-7384.conf && redis-server work/redis-clusternode6-7384.conf
+	- which stunnel
+	- which stunnel3
+	- which stunnel4
+	stunnel -version
 	echo "$$STUNNEL_CONF" > work/stunnel.conf && stunnel work/stunnel.conf
 
 cleanup: stop
