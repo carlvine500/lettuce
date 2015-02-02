@@ -279,9 +279,8 @@ start: cleanup
 	echo "$$REDIS_CLUSTER_NODE5_CONF" > work/redis-clusternode5-7383.conf && redis-server work/redis-clusternode5-7383.conf
 	echo "$$REDIS_CLUSTER_NODE6_CONF" > work/redis-clusternode6-7384.conf && redis-server work/redis-clusternode6-7384.conf
 	echo "$$STUNNEL_CONF" > work/stunnel.conf
-	sudo cp -f  work/stunnel.conf /etc/stunnel.conf
-	- cat /usr/share/doc/stunnel4/examples/stunnel.conf-sample
-	stunnel work/stunnel.conf
+	which stunnel4 >/dev/null 2>&1 && stunnel4 work/stunnel.conf || stunnel work/stunnel.conf
+
 
 cleanup: stop
 	- mkdir -p work
@@ -295,6 +294,8 @@ ssl-keys:
 	- rm -f work/keystore.jks
 	openssl genrsa -out work/key.pem 4096
 	openssl req -new -x509 -key work/key.pem -out work/cert.pem -days 365 -subj "/O=lettuce/ST=Some-State/C=DE/CN=lettuce-test"
+	chmod go-rwx work/key.pem
+	chmod go-rwx work/cert.pem
 	keytool -importcert -keystore work/keystore.jks -file work/cert.pem -noprompt -storepass changeit
 
 stop:
