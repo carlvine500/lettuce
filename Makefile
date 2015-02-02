@@ -277,7 +277,12 @@ start: cleanup
 	echo "$$REDIS_CLUSTER_NODE4_CONF" > work/redis-clusternode4-7382.conf && redis-server work/redis-clusternode4-7382.conf
 	echo "$$REDIS_CLUSTER_NODE5_CONF" > work/redis-clusternode5-7383.conf && redis-server work/redis-clusternode5-7383.conf
 	echo "$$REDIS_CLUSTER_NODE6_CONF" > work/redis-clusternode6-7384.conf && redis-server work/redis-clusternode6-7384.conf
-	echo "$$STUNNEL_CONF" > work/stunnel.conf && stunnel work/stunnel.conf
+	pwd
+	echo "$$STUNNEL_CONF" > work/stunnel.conf
+	cat work/stunnel.conf
+	cat work/key.pem
+	cat work/cert.pem
+	stunnel work/stunnel.conf
 
 cleanup: stop
 	- mkdir -p work
