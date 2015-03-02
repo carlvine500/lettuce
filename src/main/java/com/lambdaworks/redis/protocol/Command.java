@@ -25,12 +25,11 @@ public class Command<K, V, T> extends AbstractFuture<T> implements RedisCommand<
 
     private static final byte[] CRLF = "\r\n".getBytes(LettuceCharsets.ASCII);
 
-    protected CommandArgs<K, V> args;
-    protected CommandOutput<K, V, T> output;
-    protected CountDownLatch latch;
+    private final CommandArgs<K, V> args;
+    private final CommandOutput<K, V, T> output;
+    private final CountDownLatch latch = new CountDownLatch(1);
 
     private final CommandType type;
-    private boolean multi;
     private Throwable exception;
     private boolean cancelled = false;
 
@@ -41,33 +40,12 @@ public class Command<K, V, T> extends AbstractFuture<T> implements RedisCommand<
      * @param output Command output.
      * @param args Command args, if any.
      */
-    public Command(CommandType type, CommandOutput<K, V, T> output, CommandArgs<K, V> args) {
-        this(type, output, args, false);
-    }
-
-    /**
-     * Create a new command with the supplied type and args.
-     * 
-     * @param type Command type.
-     * @param output Command output.
-     * @param args Command args, if any.
-     * @param multi Flag indicating if MULTI active.
-     */
-    public Command(CommandType type, CommandOutput<K, V, T> output, CommandArgs<K, V> args, boolean multi) {
+    public Command(CommandType type, @Nonnull CommandOutput<K, V, T> output, CommandArgs<K, V> args) {
         this.type = type;
         this.output = output;
         this.args = args;
-        setMulti(multi);
     }
 
-    public void setMulti(boolean multi) {
-        this.latch = new CountDownLatch(multi ? 2 : 1);
-        this.multi = multi;
-    }
-
-    public boolean isMulti() {
-        return multi;
-    }
 
     @Override
     protected void interruptTask() {
@@ -247,10 +225,6 @@ public class Command<K, V, T> extends AbstractFuture<T> implements RedisCommand<
         sb.append(", output=").append(output);
         sb.append(']');
         return sb.toString();
-    }
-
-    public void setOutput(CommandOutput<K, V, T> output) {
-        this.output = output;
     }
 
     public Throwable getException() {

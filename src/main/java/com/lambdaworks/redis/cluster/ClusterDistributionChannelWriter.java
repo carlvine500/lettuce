@@ -44,9 +44,7 @@ class ClusterDistributionChannelWriter<K, V> implements RedisChannelWriter<K, V>
 
         if (command instanceof Command) {
             Command<K, V, T> singleCommand = (Command<K, V, T>) command;
-            if (!singleCommand.isMulti()) {
-                commandToSend = new ClusterCommand<K, V, T>(singleCommand, this, executionLimit);
-            }
+            commandToSend = new ClusterCommand<K, V, T>(singleCommand, this, executionLimit);
         }
 
         RedisChannelWriter<K, V> channelWriter = null;
