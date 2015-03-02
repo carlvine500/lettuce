@@ -2,14 +2,15 @@
 
 package com.lambdaworks.redis.protocol;
 
+import com.google.common.util.concurrent.AbstractFuture;
+import com.lambdaworks.redis.RedisCommandExecutionException;
+import com.lambdaworks.redis.RedisCommandInterruptedException;
+import io.netty.buffer.ByteBuf;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-
-import com.google.common.util.concurrent.AbstractFuture;
-import com.lambdaworks.redis.RedisCommandInterruptedException;
-import io.netty.buffer.ByteBuf;
 
 /**
  * A redis command and its result. All successfully executed commands will eventually return a {@link CommandOutput} object.
@@ -108,6 +109,9 @@ public class Command<K, V, T> extends AbstractFuture<T> implements RedisCommand<
             latch.await();
             if (exception != null) {
                 throw new ExecutionException(exception);
+            }
+            if (getError() != null) {
+                throw new ExecutionException(new RedisCommandExecutionException(getError()));
             }
 
             return output.get();
