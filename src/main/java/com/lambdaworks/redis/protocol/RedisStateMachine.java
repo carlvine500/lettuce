@@ -2,23 +2,17 @@
 
 package com.lambdaworks.redis.protocol;
 
-import static com.lambdaworks.redis.protocol.LettuceCharsets.buffer;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.BULK;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.BYTES;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.ERROR;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.INTEGER;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.MULTI;
-import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.SINGLE;
+import com.lambdaworks.redis.RedisException;
+import io.netty.buffer.ByteBuf;
+import io.netty.util.internal.logging.InternalLogger;
+import io.netty.util.internal.logging.InternalLoggerFactory;
 
 import java.nio.ByteBuffer;
 import java.util.Deque;
 import java.util.LinkedList;
 
-import com.lambdaworks.redis.RedisException;
-
-import io.netty.buffer.ByteBuf;
-import io.netty.util.internal.logging.InternalLogger;
-import io.netty.util.internal.logging.InternalLoggerFactory;
+import static com.lambdaworks.redis.protocol.LettuceCharsets.buffer;
+import static com.lambdaworks.redis.protocol.RedisStateMachine.State.Type.*;
 
 /**
  * State machine that decodes redis server responses encoded according to the <a href="http://redis.io/topics/protocol">Unified

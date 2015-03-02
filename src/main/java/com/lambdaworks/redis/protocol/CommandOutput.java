@@ -2,9 +2,9 @@
 
 package com.lambdaworks.redis.protocol;
 
-import java.nio.ByteBuffer;
-
 import com.lambdaworks.redis.codec.RedisCodec;
+
+import java.nio.ByteBuffer;
 
 /**
  * Abstract representation of the output of a redis command.
