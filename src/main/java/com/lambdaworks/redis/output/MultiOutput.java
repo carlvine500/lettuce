@@ -2,16 +2,16 @@
 
 package com.lambdaworks.redis.output;
 
-import com.lambdaworks.redis.RedisCommandExecutionException;
-import com.lambdaworks.redis.codec.RedisCodec;
-import com.lambdaworks.redis.protocol.CommandOutput;
-import com.lambdaworks.redis.protocol.RedisCommand;
-
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+
+import com.lambdaworks.redis.RedisCommandExecutionException;
+import com.lambdaworks.redis.codec.RedisCodec;
+import com.lambdaworks.redis.protocol.CommandOutput;
+import com.lambdaworks.redis.protocol.RedisCommand;
 
 /**
  * Output of all commands within a MULTI block.

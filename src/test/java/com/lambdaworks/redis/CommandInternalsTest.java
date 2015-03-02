@@ -2,6 +2,15 @@
 
 package com.lambdaworks.redis;
 
+import static com.lambdaworks.redis.protocol.LettuceCharsets.buffer;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.lambdaworks.redis.codec.RedisCodec;
 import com.lambdaworks.redis.codec.Utf8StringCodec;
 import com.lambdaworks.redis.output.NestedMultiOutput;
@@ -10,14 +19,6 @@ import com.lambdaworks.redis.protocol.Command;
 import com.lambdaworks.redis.protocol.CommandKeyword;
 import com.lambdaworks.redis.protocol.CommandOutput;
 import com.lambdaworks.redis.protocol.CommandType;
-import org.junit.Before;
-import org.junit.Test;
-
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
-import static com.lambdaworks.redis.protocol.LettuceCharsets.buffer;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CommandInternalsTest {
     protected RedisCodec<String, String> codec = new Utf8StringCodec();

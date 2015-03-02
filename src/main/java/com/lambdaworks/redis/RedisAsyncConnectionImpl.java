@@ -2,11 +2,7 @@
 
 package com.lambdaworks.redis;
 
-import com.lambdaworks.codec.Base16;
-import com.lambdaworks.redis.codec.RedisCodec;
-import com.lambdaworks.redis.output.*;
-import com.lambdaworks.redis.protocol.*;
-import io.netty.channel.ChannelHandler;
+import static com.lambdaworks.redis.protocol.CommandType.EXEC;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -16,7 +12,11 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import static com.lambdaworks.redis.protocol.CommandType.EXEC;
+import com.lambdaworks.codec.Base16;
+import com.lambdaworks.redis.codec.RedisCodec;
+import com.lambdaworks.redis.output.*;
+import com.lambdaworks.redis.protocol.*;
+import io.netty.channel.ChannelHandler;
 
 /**
  * An asynchronous thread-safe connection to a redis server. Multiple threads may share one {@link RedisAsyncConnectionImpl}
