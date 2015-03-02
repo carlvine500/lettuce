@@ -13,6 +13,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import com.google.common.util.concurrent.AbstractFuture;
+import com.lambdaworks.redis.RedisCommandExecutionException;
+import com.lambdaworks.redis.RedisCommandInterruptedException;
+import io.netty.buffer.ByteBuf;
+
 /**
  * A redis command and its result. All successfully executed commands will eventually return a {@link CommandOutput} object.
  * 
